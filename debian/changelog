@@ -1,0 +1,11 @@
+elvoke (0.1a) unstable; urgency=low
+
+  * Fix the interval computation routine.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Thu, 20 Jul 2006 09:09:53 +0200
+
+elvoke (0.1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Mon, 17 Jul 2006 11:57:39 +0200

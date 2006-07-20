@@ -1,0 +1,218 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use File::stat qw(stat);
+use Pod::Usage qw(pod2usage);
+use Getopt::Long qw(:config gnu_getopt no_ignore_case);
+
+our $VERSION = '0.1';
+my $id = undef;
+my $filename = undef;
+my $interval = 60 * 60; # 1h
+my $debug = 0;
+my $fail_on_postpone = 0;
+my $home = exists $ENV{'ELVOKE_HOME'} ? $ENV{'ELVOKE_HOME'} : "$ENV{'HOME'}/.elvoke/";
+
+sub debug { printf STDERR "%s\n", shift if $debug; };
+
+sub error { printf STDERR "%s\n", shift; exit -1; }
+
+sub set_id
+{
+  ($_, $_) = @_;
+  pod2usage(-1) unless /^\w{6,}$/;
+  $id = $_;
+  $filename = "$id.stamp";
+}
+
+sub set_filename
+{
+  
+  $id = undef;
+  ($_, $filename) = @_;
+}
+
+sub set_interval
+{
+  ($_, $_) = @_;
+  pod2usage(-1) unless /^([0-9]+[dhms])+$/;
+  while (/([0-9]+)([dhms])/g)
+  {
+    my $dt = int($1);
+    $dt *= 24 * 60 * 60 if $2 eq 'd';
+    $dt *=      60 * 60 if $2 eq 'h';
+    $dt *=           60 if $2 eq 'm';
+    $interval += $dt;
+  }
+}
+
+sub compute_digest
+{
+  require Digest::SHA1; import Digest::SHA1 qw(sha1_base64);
+  my $data = join "\0", @_;
+  $_ = sha1_base64($data);
+  s/\W/_/g;
+  return $_;
+}
+
+sub show_version
+{
+  print "elvoke, $VERSION\nCopyright (c) 2006 Jakub Wilk\n";
+  exit -1;
+}
+
+sub quote
+{
+  $_ = shift;
+  s/\a/\\a/g; s/\f/\\f/g; 
+  s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g; 
+  s/\0/\\0/g;
+  s/([\0-\x1f])/sprintf '\\x%02x', ord($1)/ge;
+  s/'/\\'/g;
+  return "'$_'";
+}
+
+GetOptions(
+  'id|i=s'            => \&set_id,
+  'filename|f=s'      => \&set_filename,
+  'interval|t=s'      => \&set_interval,
+  'fail-on-postpone'  => \$fail_on_postpone,
+  'debug'             => \$debug,
+  'version'           => \&show_version,
+  'help|h|?'          => sub { pod2usage(-1); }
+) or pod2usage(-1);
+pod2usage(-1) if $#ARGV < 0;
+
+my $ex;
+$ex = chdir if $home eq '';
+$ex = chdir $home if $home ne ''; 
+error q(Can't change working directory to ) . quote($home) . ": $!" unless $ex;
+
+set_id undef, (compute_digest @ARGV) unless (defined $filename);
+debug "Idenitifer: '$id'" if defined $id;
+debug 'File name: ' . quote($filename);
+my $need_run = undef;
+my $stat = stat $filename;
+if (defined $stat)
+{
+  my $elapsed = time - $stat->mtime;
+  $need_run = $elapsed > $interval;
+  debug "$elapsed > $interval" if $need_run;
+  debug "$elapsed <= $interval" unless $need_run;
+}
+else
+{
+  debug 'Timestamp not found';
+  $need_run = 1;
+}
+exit -2 * $fail_on_postpone unless $need_run;
+debug 'I will update timestamp';
+my $pid = fork;
+error "Fork failed: $!" unless defined $pid;
+if ($pid == 0)
+{
+  # child:
+  exec { $ARGV[0] } @ARGV or exit -1;
+}
+else
+{
+  # parent:
+  debug "The child has pid $pid";
+  $pid = wait;
+  if ($pid < 0)
+  {
+    error "Wait failed: $!";
+  }
+  else
+  {
+    my $ec = $? >> 8;
+    if ($ec == 0)
+    {
+      debug "The child exited successfully";
+      open STAMP, '>', $filename or error q(Can't open ) . quote($filename) . ": $!";
+      close STAMP;
+    }
+    else
+    {
+      debug "The child exited with error code $ec";
+    }
+    exit $ec;
+  }
+}
+
+# Written on 2006-07-17
+
+__END__
+
+=head1 NAME
+
+elvoke -- invoke or postpone commands
+
+=head1 SYNOPSIS
+
+elvoke I<[options]> commandlineI<...>
+
+=head1 OPTIONS
+
+Invoke the provided command if enough time has elapsed since its previous execution.
+
+=over 4
+
+=item B<-i>, B<--id> I<< <identifier> >>
+
+distinguish different commands on the basis of identifier
+(if not set, it will be automatically generated)
+
+=item B<-f>, B<--file> I<< <file-name> >>
+
+set the time stamp file name
+(if not set, it will be automatically generated)
+
+=item B<-t>, B<--interval> I<< <time-specification> >>
+
+set the minimum interval between invokes of the same command; default is one hour;
+I<< <time-specification> >> examples: C<3d>, C<1h30m>, C<45s>
+
+=item B<--fail-on-postpone>
+
+exit with non-zero code if the command is postponed
+
+=item B<--debug>
+
+print some (vaguely useful) debug information
+
+=item B<--version>
+
+display version information and exit
+
+=item B<-h>, B<-?>, B<--help>
+
+display help and exit
+
+=back
+
+=head1 ENVIRONMENT
+
+ELVOKE_HOME (default: F<$HOME/.elvoke/>)
+
+=head1 FILES
+
+F<C<$ELVOKE_HOME>/I<< <identifier> >>>
+
+=head1 SEE ALSO
+
+L<cron(8)>
+
+=head1 AUTHOR
+
+Written by Jakub Wilk E<lt>ubanus@users.sf.netE<gt> on 17 Jul 2006.
+
+=head1 COPYRIGHT
+
+You may redistribute copies of B<elvoke> under the terms of the GNU General Public License, version 2.
+
+=head1 
+
+=cut
+
+# vim:ts=2 sw=2 et
