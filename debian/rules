@@ -7,7 +7,7 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 	pod2man elvoke > elvoke.1
-	touch $@
+	touch $(@)
 
 clean:
 	dh_testdir
@@ -22,8 +22,6 @@ install: build
 	dh_install elvoke usr/bin/
 
 binary-indep: build install
-
-binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs 
@@ -36,6 +34,8 @@ binary-arch: build install
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
+
+binary-arch: build install
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure

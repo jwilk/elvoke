@@ -1,3 +1,9 @@
+elvoke (0.1b) unstable; urgency=low
+
+  * Use Digest::MD5 instead of Digest::SHA1.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Tue, 19 Sep 2006 12:36:44 +0200
+
 elvoke (0.1a) unstable; urgency=low
 
   * Fix the interval computation routine.

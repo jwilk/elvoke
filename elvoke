@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+
 use File::stat qw(stat);
 use Pod::Usage qw(pod2usage);
 use Getopt::Long qw(:config gnu_getopt no_ignore_case);
@@ -13,11 +14,11 @@ my $debug = 0;
 my $fail_on_postpone = 0;
 my $home = exists $ENV{'ELVOKE_HOME'} ? $ENV{'ELVOKE_HOME'} : "$ENV{'HOME'}/.elvoke/";
 
-sub debug { printf STDERR "%s\n", shift if $debug; };
+sub debug($) { printf STDERR "%s\n", shift if $debug; };
 
-sub error { printf STDERR "%s\n", shift; exit -1; }
+sub error($) { printf STDERR "%s\n", shift; exit -1; }
 
-sub set_id
+sub set_id($$)
 {
   ($_, $_) = @_;
   pod2usage(-1) unless /^\w{6,}$/;
@@ -25,14 +26,14 @@ sub set_id
   $filename = "$id.stamp";
 }
 
-sub set_filename
+sub set_filename($$)
 {
   
   $id = undef;
   ($_, $filename) = @_;
 }
 
-sub set_interval
+sub set_interval($$)
 {
   ($_, $_) = @_;
   pod2usage(-1) unless /^([0-9]+[dhms])+$/;
@@ -46,24 +47,24 @@ sub set_interval
   }
 }
 
-sub compute_digest
+sub compute_digest(@)
 {
-  require Digest::SHA1; import Digest::SHA1 qw(sha1_base64);
+  require Digest::MD5;
   my $data = join "\0", @_;
-  $_ = sha1_base64($data);
+  $_ = Digest::MD5::md5_base64($data);
   s/\W/_/g;
   return $_;
 }
 
-sub show_version
+sub show_version()
 {
   print "elvoke, $VERSION\nCopyright (c) 2006 Jakub Wilk\n";
   exit -1;
 }
 
-sub quote
+sub quote($)
 {
-  $_ = shift;
+  ($_) = @_;
   s/\a/\\a/g; s/\f/\\f/g; 
   s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g; 
   s/\0/\\0/g;
@@ -88,7 +89,7 @@ $ex = chdir if $home eq '';
 $ex = chdir $home if $home ne ''; 
 error q(Can't change working directory to ) . quote($home) . ": $!" unless $ex;
 
-set_id undef, (compute_digest @ARGV) unless (defined $filename);
+set_id undef, (compute_digest @ARGV) unless defined $filename;
 debug "Idenitifer: '$id'" if defined $id;
 debug 'File name: ' . quote($filename);
 my $need_run = undef;
@@ -140,7 +141,6 @@ else
   }
 }
 
-# Written on 2006-07-17
 
 __END__
 
@@ -215,4 +215,4 @@ You may redistribute copies of B<elvoke> under the terms of the GNU General Publ
 
 =cut
 
-# vim:ts=2 sw=2 et
+vim:ts=2 sw=2 et
