@@ -1,3 +1,9 @@
+elvoke (0.1c) unstable; urgency=low
+
+  * Fix the manual title.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Sat, 30 Sep 2006 23:48:53 +0200
+
 elvoke (0.1b) unstable; urgency=low
 
   * Use Digest::MD5 instead of Digest::SHA1.

@@ -6,7 +6,7 @@ build: build-stamp
 
 build-stamp:
 	dh_testdir
-	pod2man elvoke > elvoke.1
+	pod2man -c 'elvoke manual' elvoke > elvoke.1
 	touch $(@)
 
 clean:
