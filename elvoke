@@ -6,7 +6,7 @@ use File::stat qw(stat);
 use Pod::Usage qw(pod2usage);
 use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 my $id = undef;
 my $filename = undef;
 my $interval = 60 * 60; # 1h
@@ -36,6 +36,7 @@ sub set_filename($$)
 sub set_interval($$)
 {
   ($_, $_) = @_;
+  $interval = 0;
   pod2usage(-1) unless /^([0-9]+[dhms])+$/;
   while (/([0-9]+)([dhms])/g)
   {
