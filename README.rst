@@ -1,14 +1,2 @@
-Source: elvoke
-Section: admin
-Priority: extra
-Maintainer: Jakub Wilk <ubanus@users.sf.net>
-Build-Depends: debhelper (>= 5), perl
-Standards-Version: 3.7.3
-Bugs: mailto:ubanus@users.sf.net
-
-Package: elvoke
-Architecture: all
-Depends: ${perl:Depends}, ${misc:Depends}
-Description: Invoke or postpone commands
- Invoke the provided command if enough time has elapsed since its previous
- execution.
+*elvoke* invokes the provided command if enough time has elapsed since its
+previous execution.
