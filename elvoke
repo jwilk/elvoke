@@ -80,7 +80,7 @@ sub compute_digest(@)
 
 sub show_version()
 {
-  print "elvoke, $VERSION\n";
+  print "elvoke $VERSION\n";
   exit 0;
 }
 

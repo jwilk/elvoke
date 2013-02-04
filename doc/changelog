@@ -7,8 +7,9 @@ elvoke (0.3) UNRELEASED; urgency=low
     - Add the DESCRIPTION section.
     - Improve the synopsis.
   * Make --version and --help exit with code 0.
+  * Simplify --version output.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Feb 2013 23:42:33 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Feb 2013 23:43:27 +0100
 
 elvoke (0.2) unstable; urgency=low
 
