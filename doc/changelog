@@ -4,9 +4,11 @@ elvoke (0.3) UNRELEASED; urgency=low
   * Change the license to Expat.
   * Improve the manual page, as per man-pages(7) recommendations:
     - Remove the AUTHOR and COPYRIGHT sections.
+    - Add the DESCRIPTION section.
+    - Improve the synopsis.
   * Make --version and --help exit with code 0.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Feb 2013 23:35:40 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Feb 2013 23:38:02 +0100
 
 elvoke (0.2) unstable; urgency=low
 
