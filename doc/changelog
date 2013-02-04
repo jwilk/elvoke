@@ -6,10 +6,13 @@ elvoke (0.3) UNRELEASED; urgency=low
     - Remove the AUTHOR and COPYRIGHT sections.
     - Add the DESCRIPTION section.
     - Improve the synopsis.
+    - Work around a pod2man bug: manual page references should be rendered in
+      bold, not in italics.
+      http://bugs.debian.org/280148
   * Make --version and --help exit with code 0.
   * Simplify --version output.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Feb 2013 23:43:27 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Feb 2013 23:47:59 +0100
 
 elvoke (0.2) unstable; urgency=low
 

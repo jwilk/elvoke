@@ -2,7 +2,8 @@
 all: doc/elvoke.1
 
 doc/elvoke.1: elvoke
-	pod2man -c 'elvoke manual' $(<) > $(@).tmp
+	sed -e 's/L<\([a-z_-]\+\)(\([0-9]\+\))>/B<\1>(\2)/' $(<) \
+	| pod2man -c 'elvoke manual' -n elvoke > $(@).tmp
 	mv $(@).tmp $(@)
 
 .PHONY: clean
