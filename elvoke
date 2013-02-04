@@ -81,7 +81,7 @@ sub compute_digest(@)
 sub show_version()
 {
   print "elvoke, $VERSION\n";
-  exit -1;
+  exit 0;
 }
 
 sub quote($)
@@ -102,7 +102,7 @@ GetOptions(
   'fail-on-postpone'  => \$fail_on_postpone,
   'debug'             => \$debug,
   'version'           => \&show_version,
-  'help|h|?'          => sub { pod2usage(-1); }
+  'help|h|?'          => sub { pod2usage(0); }
 ) or pod2usage(-1);
 pod2usage(-1) if $#ARGV < 0;
 
