@@ -1,8 +1,8 @@
 .PHONY: all
 all: doc/elvoke.1
 
-doc/elvoke.1:
-	pod2man -c 'elvoke manual' elvoke > $(@).tmp
+doc/elvoke.1: elvoke
+	pod2man -c 'elvoke manual' $(<) > $(@).tmp
 	mv $(@).tmp $(@)
 
 .PHONY: clean
