@@ -1,3 +1,9 @@
+elvoke (0.3) UNRELEASED; urgency=low
+
+  * Remove Debian packaging.
+
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 04 Feb 2013 23:18:19 +0100
+
 elvoke (0.2) unstable; urgency=low
 
   * Fix the interval computation routine. Again. 
