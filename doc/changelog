@@ -8,34 +8,34 @@ elvoke (0.2) unstable; urgency=low
 
   * Fix the interval computation routine. Again.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 14 Feb 2008 21:39:25 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 14 Feb 2008 21:39:25 +0100
 
 elvoke (0.1d) unstable; urgency=low
 
   * Repackage.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Wed, 25 Apr 2007 20:24:07 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 25 Apr 2007 20:24:07 +0200
 
 elvoke (0.1c) unstable; urgency=low
 
   * Fix the manual title.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Sat, 30 Sep 2006 23:48:53 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 30 Sep 2006 23:48:53 +0200
 
 elvoke (0.1b) unstable; urgency=low
 
   * Use Digest::MD5 instead of Digest::SHA1.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Tue, 19 Sep 2006 12:36:44 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 19 Sep 2006 12:36:44 +0200
 
 elvoke (0.1a) unstable; urgency=low
 
   * Fix the interval computation routine.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 20 Jul 2006 09:09:53 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 20 Jul 2006 09:09:53 +0200
 
 elvoke (0.1) unstable; urgency=low
 
   * Initial release.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Mon, 17 Jul 2006 11:57:39 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 17 Jul 2006 11:57:39 +0200
