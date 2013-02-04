@@ -225,10 +225,6 @@ F<C<$ELVOKE_HOME>/I<< <identifier> >>>
 
 L<cron(8)>
 
-=head1 AUTHOR
-
-Written by Jakub Wilk E<lt>jwilk@jwilk.netE<gt> on 17 Jul 2006.
-
 =head1 
 
 =cut
