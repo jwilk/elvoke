@@ -33,7 +33,24 @@ my $filename = undef;
 my $interval = 60 * 60; # 1h
 my $debug = 0;
 my $fail_on_postpone = 0;
-my $home = exists $ENV{'ELVOKE_HOME'} ? $ENV{'ELVOKE_HOME'} : "$ENV{'HOME'}/.elvoke/";
+
+my $home = undef;
+if (exists $ENV{ELVOKE_HOME})
+{
+  $home = $ENV{ELVOKE_HOME};
+}
+elsif (-d "$ENV{HOME}/.elvoke/")
+{
+  $home = "$ENV{HOME}/.elvoke/";
+}
+else
+{
+  # XDG Base Directory
+  require File::BaseDir;
+  require File::Path;
+  $home = File::BaseDir::cache_home('elvoke/');
+  File::Path::make_path($home, { mode => 0700 });
+}
 
 sub debug($) { printf STDERR "%s\n", shift if $debug; };
 
@@ -240,14 +257,28 @@ Display help and exit.
 
 =back
 
-=head1 ENVIRONMENT
+=head1 FILES
 
-=over
+elvoke stamp directory (I<elvoke-home>) is determined the following way:
 
-=item ELVOKE_HOME
+=over 2
 
-The stamp storage directory.
-The default is "I<$HOME>/.elvoke/".
+=item
+
+use B<ELVOKE_HOME> environment variable if it is set;
+
+=item
+
+otherwise, use "I<$HOME>/.elvoke/" if it exists;
+
+=item
+
+otherwise, use "I<$XDG_CACHE_DIR>/elvoke/" (creating it if needed)
+if the environment variable is set and non-empty;
+
+=item
+
+otherwise, use "I<$HOME/.cache/elvoke/>" (creating it if needed).
 
 =back
 
