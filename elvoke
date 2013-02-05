@@ -172,7 +172,7 @@ elvoke -- run or postpone commands
 
 =head1 SYNOPSIS
 
-elvoke I<[options]> commandlineI<...>
+elvoke [I<options>] I<commandline>
 
 =head1 DESCRIPTION
 
@@ -183,46 +183,73 @@ previous execution.
 
 =over 4
 
-=item B<-i>, B<--id> I<< <identifier> >>
+=item B<-i>, B<--id> I<identifier>
 
-distinguish different commands on the basis of identifier
-(if not set, it will be automatically generated)
+Use the I<identifier> to distinguish between different commands.
+The identifier must consist of at least 6 alphanumeric characters.
+The default identifier is generated automatically.
 
-=item B<-f>, B<--file> I<< <file-name> >>
+=item B<-f>, B<--file> I<file>
 
-set the time stamp file name
-(if not set, it will be automatically generated)
+Use the I<file> as a stamp.
+The default stamp file name is "I<elvoke-home>/I<identifier>.stamp".
 
-=item B<-t>, B<--interval> I<< <time-specification> >>
+=item B<-t>, B<--interval> I<timespec>
 
-set the minimum interval between invokes of the same command; default is one hour;
-I<< <time-specification> >> examples: C<3d>, C<1h30m>, C<45s>
+Set the minimum interval between invocations of the same command.
+
+I<timespec> syntax:
+
+=over 2
+
+=item I<n>B<d>
+
+I<n> days
+
+=item I<n>B<h>
+
+I<n> hours
+
+=item I<n>B<m>
+
+I<n> minutes
+
+=item I<n>B<s>
+
+I<n> seconds
+
+=back
+
+The default is B<1h> (one hour).
 
 =item B<--fail-on-postpone>
 
-exit with non-zero code if the command is postponed
+Exit with non-zero code if the command was postponed.
 
 =item B<--debug>
 
-print some (vaguely useful) debug information
+Output some debug information.
 
 =item B<--version>
 
-display version information and exit
+Display version information and exit.
 
 =item B<-h>, B<-?>, B<--help>
 
-display help and exit
+Display help and exit.
 
 =back
 
 =head1 ENVIRONMENT
 
-ELVOKE_HOME (default: F<$HOME/.elvoke/>)
+=over
 
-=head1 FILES
+=item ELVOKE_HOME
 
-F<C<$ELVOKE_HOME>/I<< <identifier> >>>
+The stamp storage directory.
+The default is "I<$HOME>/.elvoke/".
+
+=back
 
 =head1 SEE ALSO
 
