@@ -8,7 +8,7 @@ elvoke (0.3) UNRELEASED; urgency=low
     - Improve the synopsis.
     - Work around a pod2man bug: manual page references should be rendered in
       bold, not in italics.
-      http://bugs.debian.org/280148
+      https://bugs.debian.org/280148
   * Make --version and --help exit with code 0.
   * Simplify --version output.
   * Follow the XDG Base Directory specification.
