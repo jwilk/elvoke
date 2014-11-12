@@ -66,7 +66,7 @@ sub set_id($$)
 
 sub set_filename($$)
 {
-  
+ 
   $id = undef;
   ($_, $filename) = @_;
 }
@@ -104,8 +104,8 @@ sub show_version()
 sub quote($)
 {
   ($_) = @_;
-  s/\a/\\a/g; s/\f/\\f/g; 
-  s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g; 
+  s/\a/\\a/g; s/\f/\\f/g;
+  s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g;
   s/\0/\\0/g;
   s/([\0-\x1f])/sprintf '\\x%02x', ord($1)/ge;
   s/'/\\'/g;
@@ -125,7 +125,7 @@ pod2usage(-1) if $#ARGV < 0;
 
 my $ex;
 $ex = chdir if $home eq '';
-$ex = chdir $home if $home ne ''; 
+$ex = chdir $home if $home ne '';
 error q(Can't change working directory to ) . quote($home) . ": $!" unless $ex;
 
 set_id undef, (compute_digest @ARGV) unless defined $filename;
@@ -286,7 +286,7 @@ otherwise, use "I<$HOME/.cache/elvoke/>" (creating it if needed).
 
 L<cron(8)>
 
-=head1 
+=head1
 
 =cut
 
