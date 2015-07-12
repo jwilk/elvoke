@@ -12,4 +12,4 @@ elvoke.1: ../elvoke
 clean:
 	rm -f *.1 *.tmp
 
-# vim:ts=4 sw=4 noet
+# vim:ts=4 sts=4 sw=4 noet
