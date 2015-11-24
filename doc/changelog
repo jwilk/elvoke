@@ -12,8 +12,9 @@ elvoke (0.3) UNRELEASED; urgency=low
   * Make --version and --help exit with code 0.
   * Simplify --version output.
   * Follow the XDG Base Directory specification.
+  * Fix typo in a debug message.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 05 Feb 2013 21:46:44 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 24 Nov 2015 15:06:34 +0100
 
 elvoke (0.2) unstable; urgency=low
 
