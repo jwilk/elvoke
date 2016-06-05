@@ -3,10 +3,10 @@ elvoke (0.3) UNRELEASED; urgency=low
   * Remove Debian packaging.
   * Change the license to Expat.
   * Improve the manual page, as per man-pages(7) recommendations:
-    - Remove the AUTHOR and COPYRIGHT sections.
-    - Add the DESCRIPTION section.
-    - Improve the synopsis.
-    - Work around a pod2man bug: manual page references should be rendered in
+    + Remove the AUTHOR and COPYRIGHT sections.
+    + Add the DESCRIPTION section.
+    + Improve the synopsis.
+    + Work around a pod2man bug: manual page references should be rendered in
       bold, not in italics.
       https://bugs.debian.org/280148
   * Make --version and --help exit with code 0.
