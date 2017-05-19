@@ -3,6 +3,7 @@ elvoke (0.3) UNRELEASED; urgency=low
   * Remove Debian packaging.
   * Change the license to Expat.
   * Improve the manual page, as per man-pages(7) recommendations:
+    + Fix syntax in the NAME section.
     + Remove the AUTHOR and COPYRIGHT sections.
     + Add the DESCRIPTION section.
     + Improve the synopsis.
@@ -14,7 +15,7 @@ elvoke (0.3) UNRELEASED; urgency=low
   * Follow the XDG Base Directory specification.
   * Fix typo in a debug message.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 24 Nov 2015 15:06:34 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 19 May 2017 18:59:56 +0200
 
 elvoke (0.2) unstable; urgency=low
 
