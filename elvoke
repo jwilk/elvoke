@@ -263,20 +263,20 @@ elvoke stamp directory (I<elvoke-home>) is determined the following way:
 
 =over 2
 
-=item
+=item *
 
 use B<ELVOKE_HOME> environment variable if it is set;
 
-=item
+=item *
 
 otherwise, use "I<$HOME>/.elvoke/" if it exists;
 
-=item
+=item *
 
 otherwise, use "I<$XDG_CACHE_DIR>/elvoke/" (creating it if needed)
 if the environment variable is set and non-empty;
 
-=item
+=item *
 
 otherwise, use "I<$HOME/.cache/elvoke/>" (creating it if needed).
 
