@@ -286,8 +286,6 @@ otherwise, use "I<$HOME/.cache/elvoke/>" (creating it if needed).
 
 L<cron(8)>
 
-=head1
-
 =cut
 
 vim:ts=2 sts=2 sw=2 et
