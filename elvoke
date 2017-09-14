@@ -265,7 +265,7 @@ elvoke stamp directory (I<elvoke-home>) is determined the following way:
 
 =item *
 
-use B<ELVOKE_HOME> environment variable if it is set;
+use the B<ELVOKE_HOME> environment variable if it is set;
 
 =item *
 
