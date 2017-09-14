@@ -107,7 +107,7 @@ sub quote($)
   s/\a/\\a/g; s/\f/\\f/g;
   s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g;
   s/\0/\\0/g;
-  s/([\0-\x1f])/sprintf '\\x%02x', ord($1)/ge;
+  s/([\0-\x1F])/sprintf '\\x%02X', ord($1)/ge;
   s/'/\\'/g;
   return "'$_'";
 }
