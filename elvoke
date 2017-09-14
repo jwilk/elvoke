@@ -278,7 +278,7 @@ if the environment variable is set and non-empty;
 
 =item *
 
-otherwise, use "I<$HOME/.cache/elvoke/>" (creating it if needed).
+otherwise, use "I<$HOME>/.cache/elvoke/" (creating it if needed).
 
 =back
 
