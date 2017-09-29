@@ -2,4 +2,4 @@
 version=${1:?"no version number provided"}
 set -e -x
 dch -m -v "$version" -u low -c doc/changelog
-sed -i -E -e "s/^(our \\\$VERSION) = .*;/\1 = '$version';/" elvoke
+perl -pi -e "s/^(our \\\$VERSION) = .*;/\1 = '$version';/" elvoke
