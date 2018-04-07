@@ -31,7 +31,7 @@ all: ;
 install:
 	install -d $(DESTDIR)$(bindir)
 	install elvoke $(DESTDIR)$(bindir)/elvoke
-ifeq "$(wildcard .git doc/elvoke.1)" ".git"
+ifeq "$(wildcard doc/elvoke.1)" ""
 	# run "$(MAKE) -C doc" to build the manpage
 else
 	install -d $(DESTDIR)$(mandir)/man1
