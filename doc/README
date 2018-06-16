@@ -1,0 +1,16 @@
+Overview
+========
+
+**elvoke** either runs or postpones a command,
+depending on how much time elapsed from the last successful run.
+
+Prerequisites
+=============
+
+* Perl ≥ 5.6.0
+* `File::BaseDir`_
+
+.. _File::BaseDir:
+   https://metacpan.org/release/File-BaseDir
+
+.. vim:ft=rst ts=3 sts=3 sw=3 et
