@@ -5,9 +5,11 @@ perl:
 - "5.8"
 - "5.26"
 install:
+- python -m pip install --user docutils
 - cpanm File::BaseDir
 script:
 - dpkg-parsechangelog -ldoc/changelog --all 2>&1 >/dev/null | { ! grep .; }
+- private/check-rst
 - make -C doc/
 - perl -wc elvoke
 - make install PREFIX=~/.local
