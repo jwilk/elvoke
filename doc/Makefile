@@ -8,6 +8,10 @@ elvoke.1: ../elvoke
 	| pod2man -c '' -n ELVOKE -r 'elvoke $(version)' > $(@).tmp
 	mv $(@).tmp $(@)
 
+.PHONY: test check
+test check: ../elvoke
+	podchecker -warnings -warnings $(<)
+
 .PHONY: clean
 clean:
 	rm -f *.1 *.tmp
