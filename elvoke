@@ -250,11 +250,11 @@ Output some debug information.
 
 =item B<--version>
 
-Display version information and exit.
+Show version information and exit.
 
 =item B<-h>, B<-?>, B<--help>
 
-Display help and exit.
+Show help message and exit.
 
 =back
 
