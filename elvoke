@@ -56,7 +56,7 @@ sub error($) { printf STDERR "elvoke: error: %s\n", shift; exit -1; }
 sub set_id($$)
 {
     ($_, $_) = @_;
-    pod2usage(-1) unless /^\w{6,}$/;
+    /^\w{6,}$/ or error 'invalid identifier syntax';
     $id = $_;
     $filename = "$id.stamp";
 }
