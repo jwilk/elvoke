@@ -49,9 +49,9 @@ if (exists $ENV{ELVOKE_HOME}) {
     File::Path::make_path($home, { mode => 0700 });
 }
 
-sub debug($) { printf STDERR "%s\n", shift if $debug; };
+sub debug($) { printf STDERR "elvoke: debug: %s\n", shift if $debug; };
 
-sub error($) { printf STDERR "%s\n", shift; exit -1; }
+sub error($) { printf STDERR "elvoke: error: %s\n", shift; exit -1; }
 
 sub set_id($$)
 {
