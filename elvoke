@@ -71,7 +71,7 @@ sub set_interval($$)
 {
     ($_, $_) = @_;
     $interval = 0;
-    pod2usage(-1) unless /^([0-9]+[dhms])+$/;
+    /^([0-9]+[dhms])+$/ or error 'invalid interval syntax';
     while (/([0-9]+)([dhms])/g) {
         my $dt = int($1);
         $dt *= 24 * 60 * 60 if $2 eq 'd';
