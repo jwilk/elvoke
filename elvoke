@@ -54,7 +54,10 @@ sub debug($) {
     printf STDERR "elvoke: debug: %s\n", shift;
 };
 
-sub error($) { printf STDERR "elvoke: error: %s\n", shift; exit -1; }
+sub error($) {
+    printf STDERR "elvoke: error: %s\n", shift;
+    exit -1;
+}
 
 sub set_id($$)
 {
