@@ -99,6 +99,7 @@ sub compute_digest(@)
 sub show_version()
 {
     print "elvoke $VERSION\n";
+    print "+ Perl $^V\n";
     exit 0;
 }
 
