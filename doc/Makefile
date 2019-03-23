@@ -33,7 +33,11 @@ elvoke.1: ../elvoke
 	mv $(@).tmp $(@)
 
 .PHONY: check
-check: check-pod check-rst
+check: check-changelog check-pod check-rst
+
+.PHONY: check-changelog
+check-changelog: changelog
+	dpkg-parsechangelog -l$(<) --all 2>&1 >/dev/null | { ! grep .; }
 
 .PHONY: check-pod
 check-pod: ../elvoke
