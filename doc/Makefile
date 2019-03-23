@@ -29,7 +29,10 @@ elvoke.1: ../elvoke
 	mv $(@).tmp $(@)
 
 .PHONY: check
-check: ../elvoke
+check: check-pod
+
+.PHONY: check-pod
+check-pod: ../elvoke
 	podchecker -warnings -warnings $(<)
 
 .PHONY: clean
