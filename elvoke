@@ -127,11 +127,11 @@ pod2usage(-1) if $#ARGV < 0;
 my $ex;
 $ex = chdir if $home eq '';
 $ex = chdir $home if $home ne '';
-error q(Can't change working directory to ) . quote($home) . ": $!" unless $ex;
+error q(can't change working directory to ) . quote($home) . ": $!" unless $ex;
 
 set_id undef, (compute_digest @ARGV) unless defined $filename;
-debug "Identifier: '$id'" if defined $id;
-debug 'File name: ' . quote($filename);
+debug "identifier: '$id'" if defined $id;
+debug 'file name: ' . quote($filename);
 my $need_run = undef;
 my $stat = stat $filename;
 if (defined $stat) {
@@ -140,30 +140,30 @@ if (defined $stat) {
     debug "$elapsed > $interval" if $need_run;
     debug "$elapsed <= $interval" unless $need_run;
 } else {
-    debug 'Timestamp not found';
+    debug 'timestamp not found';
     $need_run = 1;
 }
 exit -2 * $fail_on_postpone unless $need_run;
-debug 'I will update timestamp';
+debug 'will update timestamp';
 my $pid = fork;
-error "Fork failed: $!" unless defined $pid;
+error "fork failed: $!" unless defined $pid;
 if ($pid == 0) {
     # child:
     exec { $ARGV[0] } @ARGV or exit -1;
 } else {
     # parent:
-    debug "The child has pid $pid";
+    debug "the child has pid $pid";
     $pid = wait;
     if ($pid < 0) {
-        error "Wait failed: $!";
+        error "wait failed: $!";
     } else {
         my $ec = $? >> 8;
         if ($ec == 0) {
-            debug "The child exited successfully";
-            open STAMP, '>', $filename or error q(Can't open ) . quote($filename) . ": $!";
+            debug "the child exited successfully";
+            open STAMP, '>', $filename or error q(can't open ) . quote($filename) . ": $!";
             close STAMP;
         } else {
-            debug "The child exited with error code $ec";
+            debug "the child exited with error code $ec";
         }
         exit $ec;
     }
