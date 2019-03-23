@@ -20,6 +20,10 @@
 
 version = $(shell IFS='()' read _ v _ < changelog && echo $$v)
 
+rst2xml = $(notdir $(shell command -v rst2xml || echo rst2xml.py)) \
+	--input-encoding=UTF-8 \
+	--strict
+
 .PHONY: all
 all: elvoke.1
 
@@ -29,11 +33,15 @@ elvoke.1: ../elvoke
 	mv $(@).tmp $(@)
 
 .PHONY: check
-check: check-pod
+check: check-pod check-rst
 
 .PHONY: check-pod
 check-pod: ../elvoke
 	podchecker -warnings -warnings $(<)
+
+.PHONY: check-rst
+check-rst: README
+	$(rst2xml) $(<) /dev/null
 
 .PHONY: clean
 clean:
