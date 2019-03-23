@@ -37,21 +37,16 @@ my $debug = 0;
 my $fail_on_postpone = 0;
 
 my $home = undef;
-if (exists $ENV{ELVOKE_HOME})
-{
-  $home = $ENV{ELVOKE_HOME};
-}
-elsif (-d "$ENV{HOME}/.elvoke/")
-{
-  $home = "$ENV{HOME}/.elvoke/";
-}
-else
-{
-  # XDG Base Directory
-  require File::BaseDir;
-  require File::Path;
-  $home = File::BaseDir::cache_home('elvoke/');
-  File::Path::make_path($home, { mode => 0700 });
+if (exists $ENV{ELVOKE_HOME}) {
+    $home = $ENV{ELVOKE_HOME};
+} elsif (-d "$ENV{HOME}/.elvoke/") {
+    $home = "$ENV{HOME}/.elvoke/";
+} else {
+    # XDG Base Directory
+    require File::BaseDir;
+    require File::Path;
+    $home = File::BaseDir::cache_home('elvoke/');
+    File::Path::make_path($home, { mode => 0700 });
 }
 
 sub debug($) { printf STDERR "%s\n", shift if $debug; };
@@ -60,67 +55,66 @@ sub error($) { printf STDERR "%s\n", shift; exit -1; }
 
 sub set_id($$)
 {
-  ($_, $_) = @_;
-  pod2usage(-1) unless /^\w{6,}$/;
-  $id = $_;
-  $filename = "$id.stamp";
+    ($_, $_) = @_;
+    pod2usage(-1) unless /^\w{6,}$/;
+    $id = $_;
+    $filename = "$id.stamp";
 }
 
 sub set_filename($$)
 {
-  $id = undef;
-  ($_, $filename) = @_;
+    $id = undef;
+    ($_, $filename) = @_;
 }
 
 sub set_interval($$)
 {
-  ($_, $_) = @_;
-  $interval = 0;
-  pod2usage(-1) unless /^([0-9]+[dhms])+$/;
-  while (/([0-9]+)([dhms])/g)
-  {
-    my $dt = int($1);
-    $dt *= 24 * 60 * 60 if $2 eq 'd';
-    $dt *=      60 * 60 if $2 eq 'h';
-    $dt *=           60 if $2 eq 'm';
-    $interval += $dt;
-  }
+    ($_, $_) = @_;
+    $interval = 0;
+    pod2usage(-1) unless /^([0-9]+[dhms])+$/;
+    while (/([0-9]+)([dhms])/g) {
+        my $dt = int($1);
+        $dt *= 24 * 60 * 60 if $2 eq 'd';
+        $dt *=      60 * 60 if $2 eq 'h';
+        $dt *=           60 if $2 eq 'm';
+        $interval += $dt;
+    }
 }
 
 sub compute_digest(@)
 {
-  require Digest::MD5;
-  my $data = join "\0", @_;
-  $_ = Digest::MD5::md5_base64($data);
-  s/\W/_/g;
-  return $_;
+    require Digest::MD5;
+    my $data = join "\0", @_;
+    $_ = Digest::MD5::md5_base64($data);
+    s/\W/_/g;
+    return $_;
 }
 
 sub show_version()
 {
-  print "elvoke $VERSION\n";
-  exit 0;
+    print "elvoke $VERSION\n";
+    exit 0;
 }
 
 sub quote($)
 {
-  ($_) = @_;
-  s/\a/\\a/g; s/\f/\\f/g;
-  s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g;
-  s/\0/\\0/g;
-  s/([\0-\x1F])/sprintf '\\x%02X', ord($1)/ge;
-  s/'/\\'/g;
-  return "'$_'";
+    ($_) = @_;
+    s/\a/\\a/g; s/\f/\\f/g;
+    s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g;
+    s/\0/\\0/g;
+    s/([\0-\x1F])/sprintf '\\x%02X', ord($1)/ge;
+    s/'/\\'/g;
+    return "'$_'";
 }
 
 GetOptions(
-  'id|i=s'            => \&set_id,
-  'filename|f=s'      => \&set_filename,
-  'interval|t=s'      => \&set_interval,
-  'fail-on-postpone'  => \$fail_on_postpone,
-  'debug'             => \$debug,
-  'version'           => \&show_version,
-  'help|h|?'          => sub { pod2usage(0); }
+    'id|i=s'            => \&set_id,
+    'filename|f=s'      => \&set_filename,
+    'interval|t=s'      => \&set_interval,
+    'fail-on-postpone'  => \$fail_on_postpone,
+    'debug'             => \$debug,
+    'version'           => \&show_version,
+    'help|h|?'          => sub { pod2usage(0); }
 ) or pod2usage(-1);
 pod2usage(-1) if $#ARGV < 0;
 
@@ -134,53 +128,40 @@ debug "Identifier: '$id'" if defined $id;
 debug 'File name: ' . quote($filename);
 my $need_run = undef;
 my $stat = stat $filename;
-if (defined $stat)
-{
-  my $elapsed = time - $stat->mtime;
-  $need_run = $elapsed > $interval;
-  debug "$elapsed > $interval" if $need_run;
-  debug "$elapsed <= $interval" unless $need_run;
-}
-else
-{
-  debug 'Timestamp not found';
-  $need_run = 1;
+if (defined $stat) {
+    my $elapsed = time - $stat->mtime;
+    $need_run = $elapsed > $interval;
+    debug "$elapsed > $interval" if $need_run;
+    debug "$elapsed <= $interval" unless $need_run;
+} else {
+    debug 'Timestamp not found';
+    $need_run = 1;
 }
 exit -2 * $fail_on_postpone unless $need_run;
 debug 'I will update timestamp';
 my $pid = fork;
 error "Fork failed: $!" unless defined $pid;
-if ($pid == 0)
-{
-  # child:
-  exec { $ARGV[0] } @ARGV or exit -1;
-}
-else
-{
-  # parent:
-  debug "The child has pid $pid";
-  $pid = wait;
-  if ($pid < 0)
-  {
-    error "Wait failed: $!";
-  }
-  else
-  {
-    my $ec = $? >> 8;
-    if ($ec == 0)
-    {
-      debug "The child exited successfully";
-      open STAMP, '>', $filename or error q(Can't open ) . quote($filename) . ": $!";
-      close STAMP;
+if ($pid == 0) {
+    # child:
+    exec { $ARGV[0] } @ARGV or exit -1;
+} else {
+    # parent:
+    debug "The child has pid $pid";
+    $pid = wait;
+    if ($pid < 0) {
+        error "Wait failed: $!";
+    } else {
+        my $ec = $? >> 8;
+        if ($ec == 0) {
+            debug "The child exited successfully";
+            open STAMP, '>', $filename or error q(Can't open ) . quote($filename) . ": $!";
+            close STAMP;
+        } else {
+            debug "The child exited with error code $ec";
+        }
+        exit $ec;
     }
-    else
-    {
-      debug "The child exited with error code $ec";
-    }
-    exit $ec;
-  }
 }
-
 
 __END__
 
@@ -289,4 +270,4 @@ L<cron(8)>
 
 =cut
 
-vim:ts=2 sts=2 sw=2 et
+vim:ts=4 sts=4 sw=4 et
