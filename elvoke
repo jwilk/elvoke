@@ -157,13 +157,21 @@ if ($pid == 0) {
     if ($pid < 0) {
         error "wait failed: $!";
     } else {
-        my $ec = $? >> 8;
-        if ($ec == 0) {
+        my $ec;
+        if ($? == 0) {
             debug "the child exited successfully";
             open STAMP, '>', $filename or error q(can't open ) . quote($filename) . ": $!";
             close STAMP;
+            $ec = 0;
         } else {
-            debug "the child exited with error code $ec";
+            if ($? & 127) {
+                my $signo = $? & 127;
+                debug "the child was killed by signal $signo";
+                $ec = 128 + $signo;
+            } else {
+                $ec = $? >> 8;
+                debug "the child exited with error code $ec";
+            }
         }
         exit $ec;
     }
