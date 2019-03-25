@@ -104,17 +104,6 @@ sub show_version()
     exit 0;
 }
 
-sub quote($)
-{
-    ($_) = @_;
-    s/\a/\\a/g; s/\f/\\f/g;
-    s/\n/\\n/g; s/\r/\\r/g; s/\t/\\t/g;
-    s/\0/\\0/g;
-    s/([\0-\x1F])/sprintf '\\x%02X', ord($1)/ge;
-    s/'/\\'/g;
-    return "'$_'";
-}
-
 GetOptions(
     'id|i=s'            => \&set_id,
     'filename|f=s'      => \&set_filename,
@@ -126,15 +115,15 @@ GetOptions(
 ) or pod2usage(-1);
 pod2usage(-1) if $#ARGV < 0;
 
-debug 'home: ' . quote($home);
+debug "home: $home";
 if (not defined $filename) {
     if (not defined $id) {
         $id = compute_digest @ARGV;
     }
     $filename = "$home/$id.stamp";
 }
-debug "identifier: '$id'" if defined $id;
-debug 'file name: ' . quote($filename);
+debug "identifier: $id" if defined $id;
+debug "file name: $filename";
 my $need_run = undef;
 my $stat = stat $filename;
 if (defined $stat) {
@@ -163,7 +152,7 @@ if ($pid == 0) {
         my $ec;
         if ($? == 0) {
             debug "the child exited successfully";
-            open STAMP, '>', $filename or error q(can't open ) . quote($filename) . ": $!";
+            open STAMP, '>', $filename or error "can't open $filename: $!";
             close STAMP;
             $ec = 0;
         } else {
