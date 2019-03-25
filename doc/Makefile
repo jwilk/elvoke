@@ -27,7 +27,7 @@ rst2xml = $(notdir $(shell command -v rst2xml || echo rst2xml.py)) \
 .PHONY: all
 all: elvoke.1
 
-elvoke.1: ../elvoke
+elvoke.1: manpage.pod
 	perl -pe 's/L<([a-z_-]+)[(]([0-9]+)[)]>/B<\1>(\2)/' $(<) \
 	| pod2man -c '' -n ELVOKE -r 'elvoke $(version)' > $(@).tmp
 	mv $(@).tmp $(@)
@@ -40,7 +40,7 @@ check-changelog: changelog
 	dpkg-parsechangelog -l$(<) --all 2>&1 >/dev/null | { ! grep .; }
 
 .PHONY: check-pod
-check-pod: ../elvoke
+check-pod: manpage.pod
 	podchecker -warnings -warnings $(<)
 
 .PHONY: check-rst
