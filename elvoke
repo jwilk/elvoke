@@ -28,7 +28,6 @@ use strict;
 use warnings;
 
 use File::stat qw(stat);
-use Pod::Usage qw(pod2usage);
 use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 
 our $VERSION = '0.4';
@@ -104,6 +103,36 @@ sub show_version()
     exit 0;
 }
 
+my $usage_summary = 'Usage: elvoke [OPTIONS] -- COMMMAND [ARGS...]';
+
+sub show_help()
+{
+    print <<"EOF";
+$usage_summary
+
+Options:
+  -i, --id IDENT      identifier to distinguish between different commands
+  -f, --file FILE     stamp file (default: ELVOKE-HOME/IDENT.stamp)
+  -t, --interval INT  minimum interval between invocations of the same command:
+                        Nd = N days
+                        Nh = N hours
+                        Nm = N minutes
+                        Ns = N seconds
+                      (default: 1 hour)
+  --fail-on-postpone  exit with non-zero code when postponing
+  --debug             print debug information
+  -h, -?, --help      show this help message and exit
+  --version           show version information and exit
+EOF
+    exit 0;
+}
+
+sub bad_usage()
+{
+    print STDERR "$usage_summary\n";
+    exit -1;
+}
+
 GetOptions(
     'id|i=s' => \&set_id,
     'file|f=s' => \&set_path,
@@ -111,9 +140,9 @@ GetOptions(
     'fail-on-postpone' => \$fail_on_postpone,
     'debug' => \$debug,
     'version' => \&show_version,
-    'help|h|?' => sub { pod2usage(0); }
-) or pod2usage(-1);
-pod2usage(-1) if $#ARGV < 0;
+    'help|h|?' => \&show_help,
+) or bad_usage();
+bad_usage() if $#ARGV < 0;
 
 debug "home: $home";
 if (not defined $path) {
