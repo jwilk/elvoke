@@ -34,7 +34,7 @@ use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 our $VERSION = '0.4';
 my $id = undef;
 my $filename = undef;
-my $interval = 60 * 60; # 1h
+my $interval = 60 * 60;  # 1h
 my $debug = 0;
 my $fail_on_postpone = 0;
 
