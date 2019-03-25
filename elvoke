@@ -22,6 +22,8 @@
 
 no lib '.';  # CVE-2016-1238
 
+use v5.10;
+
 use strict;
 use warnings;
 

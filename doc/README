@@ -7,7 +7,7 @@ depending on how much time elapsed from the last successful run.
 Prerequisites
 =============
 
-* Perl ≥ 5.6.0
+* Perl ≥ 5.10
 * `File::BaseDir`_
 
 .. _File::BaseDir:
