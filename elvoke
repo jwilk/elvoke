@@ -48,7 +48,7 @@ if (exists $ENV{ELVOKE_HOME}) {
     require File::BaseDir;
     require File::Path;
     $home = File::BaseDir::cache_home('elvoke/');
-    File::Path::make_path($home, { mode => 0700 });
+    File::Path::make_path($home, { mode => oct 700 });
 }
 
 sub debug {
