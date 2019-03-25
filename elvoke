@@ -103,7 +103,7 @@ sub show_version()
     exit 0;
 }
 
-my $usage_summary = 'Usage: elvoke [OPTIONS] -- COMMMAND [ARGS...]';
+my $usage_summary = 'Usage: elvoke [OPTIONS] -- COMMAND [ARGS...]';
 
 sub show_help()
 {
