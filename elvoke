@@ -132,8 +132,12 @@ if (defined $stat) {
     debug "$elapsed > $interval" if $need_run;
     debug "$elapsed <= $interval" unless $need_run;
 } else {
-    debug 'timestamp not found';
-    $need_run = 1;
+    if ($! == $!{ENOENT}) {
+        debug 'timestamp not found';
+        $need_run = 1;
+    } else {
+        error "cannot stat $path: $!";
+    }
 }
 exit -2 * $fail_on_postpone unless $need_run;
 debug 'will update timestamp';
