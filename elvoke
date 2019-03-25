@@ -66,7 +66,6 @@ sub set_id($$)
     ($_, $_) = @_;
     /^\w{6,}$/ or error 'invalid identifier syntax';
     $id = $_;
-    $filename = "$id.stamp";
 }
 
 sub set_filename($$)
@@ -127,12 +126,13 @@ GetOptions(
 ) or pod2usage(-1);
 pod2usage(-1) if $#ARGV < 0;
 
-my $ex;
-$ex = chdir if $home eq '';
-$ex = chdir $home if $home ne '';
-error q(can't change working directory to ) . quote($home) . ": $!" unless $ex;
-
-set_id undef, (compute_digest @ARGV) unless defined $filename;
+debug 'home: ' . quote($home);
+if (not defined $filename) {
+    if (not defined $id) {
+        $id = compute_digest @ARGV;
+    }
+    $filename = "$home/$id.stamp";
+}
 debug "identifier: '$id'" if defined $id;
 debug 'file name: ' . quote($filename);
 my $need_run = undef;
