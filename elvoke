@@ -62,20 +62,20 @@ sub error {
 
 sub set_id
 {
-    ($_, $_) = @_;
+    (undef, $_) = @_;
     /^\w{6,}$/ or error 'invalid identifier syntax';
     $id = $_;
 }
 
 sub set_path
 {
-    ($_, $path) = @_;
+    (undef, $path) = @_;
     $id = undef;
 }
 
 sub set_interval
 {
-    ($_, $_) = @_;
+    (undef, $_) = @_;
     $interval = 0;
     /^([0-9]+[dhms])+$/ or error 'invalid interval syntax';
     while (/([0-9]+)([dhms])/g) {
