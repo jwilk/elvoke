@@ -6,9 +6,11 @@ perl:
 install:
 - python -m pip install --user docutils
 - cpanm File::BaseDir
+- cpanm Perl::Critic
 script:
 - make -C doc/
 - make -C doc/ check
+- perlcritic elvoke
 - perl -wc elvoke
 - make install PREFIX=~/.local
 - cd /
