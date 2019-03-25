@@ -1,5 +1,6 @@
 #!/bin/sh
 version=${1:?"no version number provided"}
-set -e -x
+set -e -u
+set -x
 dch -m -v "$version" -u low -c doc/changelog
 perl -pi -e "s/^(our \\\$VERSION) = .*;/\1 = '$version';/" elvoke
