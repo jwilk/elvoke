@@ -65,7 +65,7 @@ sub error {
 sub set_id
 {
     (undef, $_) = @_;
-    /^\w{6,}$/ or error 'invalid identifier syntax';
+    /^[A-Za-z0-9_]{6,}$/ or error 'invalid identifier syntax';
     $id = $_;
     return;
 }
@@ -102,7 +102,7 @@ sub compute_digest
     require Digest::MD5;
     my $data = join "\0", @args;
     $_ = Digest::MD5::md5_base64($data);
-    s/\W/_/g;
+    s/[^A-Za-z0-9_]/_/g;
     return $_;
 }
 
