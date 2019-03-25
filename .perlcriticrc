@@ -1,0 +1,32 @@
+severity = 1
+verbose = %f:%l: [%p] %m\n
+
+[-CodeLayout::RequireTidyCode]
+# no, thanks
+
+[InputOutput::RequireCheckedSyscalls]
+functions = :builtins
+# print failures are caught at the END
+exclude_functions = print
+
+[Modules::ProhibitExcessMainComplexity]
+max_mccabe = 30
+
+[-RegularExpressions::ProhibitEnumeratedClasses]
+# we work mostly with ASCII
+
+[-RegularExpressions::RequireDotMatchAnything]
+[-RegularExpressions::RequireExtendedFormatting]
+[-RegularExpressions::RequireLineBoundaryMatching]
+# no, thanks
+
+[-ValuesAndExpressions::ProhibitMagicNumbers]
+# no, thanks
+
+[-ValuesAndExpressions::ProhibitNoisyQuotes]
+# no, thanks
+
+[-ValuesAndExpressions::ProhibitVersionStrings]
+# we don't care about Perl << 5.6, which doesn't support version strings
+
+# vim:ft=dosini
