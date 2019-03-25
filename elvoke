@@ -33,7 +33,7 @@ use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 
 our $VERSION = '0.4';
 my $id = undef;
-my $filename = undef;
+my $path = undef;
 my $interval = 60 * 60;  # 1h
 my $debug = 0;
 my $fail_on_postpone = 0;
@@ -68,10 +68,10 @@ sub set_id($$)
     $id = $_;
 }
 
-sub set_filename($$)
+sub set_path($$)
 {
     $id = undef;
-    ($_, $filename) = @_;
+    ($_, $path) = @_;
 }
 
 sub set_interval($$)
@@ -106,7 +106,7 @@ sub show_version()
 
 GetOptions(
     'id|i=s'            => \&set_id,
-    'filename|f=s'      => \&set_filename,
+    'filename|f=s'      => \&set_path,
     'interval|t=s'      => \&set_interval,
     'fail-on-postpone'  => \$fail_on_postpone,
     'debug'             => \$debug,
@@ -116,16 +116,16 @@ GetOptions(
 pod2usage(-1) if $#ARGV < 0;
 
 debug "home: $home";
-if (not defined $filename) {
+if (not defined $path) {
     if (not defined $id) {
         $id = compute_digest @ARGV;
     }
-    $filename = "$home/$id.stamp";
+    $path = "$home/$id.stamp";
 }
 debug "identifier: $id" if defined $id;
-debug "file name: $filename";
+debug "stamp path: $path";
 my $need_run = undef;
-my $stat = stat $filename;
+my $stat = stat $path;
 if (defined $stat) {
     my $elapsed = time - $stat->mtime;
     $need_run = $elapsed > $interval;
@@ -152,7 +152,7 @@ if ($pid == 0) {
         my $ec;
         if ($? == 0) {
             debug "the child exited successfully";
-            open STAMP, '>', $filename or error "can't open $filename: $!";
+            open STAMP, '>', $path or error "can't open $path: $!";
             close STAMP;
             $ec = 0;
         } else {
