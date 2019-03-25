@@ -50,30 +50,30 @@ if (exists $ENV{ELVOKE_HOME}) {
     File::Path::make_path($home, { mode => 0700 });
 }
 
-sub debug($) {
+sub debug {
     return if not $debug;
     printf STDERR "elvoke: debug: %s\n", shift;
 };
 
-sub error($) {
+sub error {
     printf STDERR "elvoke: error: %s\n", shift;
     exit -1;
 }
 
-sub set_id($$)
+sub set_id
 {
     ($_, $_) = @_;
     /^\w{6,}$/ or error 'invalid identifier syntax';
     $id = $_;
 }
 
-sub set_path($$)
+sub set_path
 {
     $id = undef;
     ($_, $path) = @_;
 }
 
-sub set_interval($$)
+sub set_interval
 {
     ($_, $_) = @_;
     $interval = 0;
@@ -87,7 +87,7 @@ sub set_interval($$)
     }
 }
 
-sub compute_digest(@)
+sub compute_digest
 {
     require Digest::MD5;
     my $data = join "\0", @_;
@@ -96,7 +96,7 @@ sub compute_digest(@)
     return $_;
 }
 
-sub show_version()
+sub show_version
 {
     print "elvoke $VERSION\n";
     print "+ Perl $^V\n";
