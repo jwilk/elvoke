@@ -4,7 +4,7 @@ elvoke - run or postpone commands
 
 =head1 SYNOPSIS
 
-elvoke [I<options>] I<commandline>
+elvoke [I<options>] -- I<command> [I<args>...]
 
 =head1 DESCRIPTION
 
