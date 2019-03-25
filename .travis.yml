@@ -13,6 +13,7 @@ script:
 - make install PREFIX=~/.local
 - cd /
 - elvoke --help
+- elvoke --version
 - export MANPATH=~/.local/share/man MANWIDTH=80
 - man 1 elvoke | grep -A 10 -w ELVOKE
 
