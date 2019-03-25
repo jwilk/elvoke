@@ -106,7 +106,7 @@ sub show_version()
 
 GetOptions(
     'id|i=s' => \&set_id,
-    'filename|f=s' => \&set_path,
+    'file|f=s' => \&set_path,
     'interval|t=s' => \&set_interval,
     'fail-on-postpone' => \$fail_on_postpone,
     'debug' => \$debug,
