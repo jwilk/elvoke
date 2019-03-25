@@ -84,9 +84,12 @@ sub set_interval
     /^([0-9]+[dhms])+$/ or error 'invalid interval syntax';
     while (/([0-9]+)([dhms])/g) {
         my $dt = int $1;
-        $dt *= 24 * 60 * 60 if $2 eq 'd';
-        $dt *=      60 * 60 if $2 eq 'h';
-        $dt *=           60 if $2 eq 'm';
+        $dt *= {
+            d => 24 * 60 * 60,
+            h =>      60 * 60,
+            m =>           60,
+            s =>            1,
+        }->{$2};
         $interval += $dt;
     }
     return;
@@ -148,7 +151,9 @@ GetOptions(
     'version' => \&show_version,
     'help|h|?' => \&show_help,
 ) or bad_usage();
-bad_usage() if $#ARGV < 0;
+if ($#ARGV < 0) {
+    bad_usage();
+}
 
 debug "home: $home";
 if (not defined $path) {
@@ -157,15 +162,17 @@ if (not defined $path) {
     }
     $path = "$home/$id.stamp";
 }
-debug "identifier: $id" if defined $id;
+if (defined $id) {
+    debug "identifier: $id";
+}
 debug "stamp path: $path";
 my $need_run = undef;
 my $stat = stat $path;
 if (defined $stat) {
     my $elapsed = time - $stat->mtime;
     $need_run = $elapsed > $interval;
-    debug "$elapsed > $interval" if $need_run;
-    debug "$elapsed <= $interval" unless $need_run;
+    my $op = $need_run ? '>' : '<=';
+    debug "$elapsed $op $interval";
 } else {
     if ($! == $!{ENOENT}) {
         debug 'timestamp not found';
@@ -174,10 +181,12 @@ if (defined $stat) {
         error "cannot stat $path: $!";
     }
 }
-exit -2 * $fail_on_postpone unless $need_run;
+if (not $need_run) {
+    exit -2 * $fail_on_postpone;
+}
 debug 'will update timestamp';
 my $pid = fork;
-error "fork failed: $!" unless defined $pid;
+defined $pid or error "fork failed: $!";
 if ($pid == 0) {
     # child:
     exec { $ARGV[0] } @ARGV or exit -1;
