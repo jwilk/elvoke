@@ -21,10 +21,10 @@ Use the I<identifier> to distinguish between different commands.
 The identifier must consist of at least 6 alphanumeric characters.
 The default identifier is generated automatically.
 
-=item B<-f>, B<--file> I<file>
+=item B<-f>, B<--file> I<path>
 
-Use the I<file> as a stamp.
-The default stamp file name is "I<elvoke-home>/I<identifier>.stamp".
+Use this file for the time stamp.
+The default is "I<elvoke-home>/I<identifier>.stamp".
 
 =item B<-t>, B<--interval> I<timespec>
 
