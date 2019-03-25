@@ -81,8 +81,9 @@ sub set_interval
 {
     (undef, $_) = @_;
     $interval = 0;
-    /^([0-9]+[dhms])+$/ or error 'invalid interval syntax';
-    while (/([0-9]+)([dhms])/g) {
+    my $re_dt = qr/([0-9]+)([dhms])/;
+    /^(?:$re_dt)+$/ or error 'invalid interval syntax';
+    while (/$re_dt/g) {
         my $dt = int $1;
         $dt *= {
             d => 24 * 60 * 60,
