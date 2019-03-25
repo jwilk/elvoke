@@ -105,13 +105,13 @@ sub show_version()
 }
 
 GetOptions(
-    'id|i=s'            => \&set_id,
-    'filename|f=s'      => \&set_path,
-    'interval|t=s'      => \&set_interval,
-    'fail-on-postpone'  => \$fail_on_postpone,
-    'debug'             => \$debug,
-    'version'           => \&show_version,
-    'help|h|?'          => sub { pod2usage(0); }
+    'id|i=s' => \&set_id,
+    'filename|f=s' => \&set_path,
+    'interval|t=s' => \&set_interval,
+    'fail-on-postpone' => \$fail_on_postpone,
+    'debug' => \$debug,
+    'version' => \&show_version,
+    'help|h|?' => sub { pod2usage(0); }
 ) or pod2usage(-1);
 pod2usage(-1) if $#ARGV < 0;
 
