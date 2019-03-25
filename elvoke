@@ -51,8 +51,10 @@ if (exists $ENV{ELVOKE_HOME}) {
 }
 
 sub debug {
-    return if not $debug;
-    printf {*STDERR} "elvoke: debug: %s\n", shift;
+    if ($debug) {
+        printf {*STDERR} "elvoke: debug: %s\n", shift;
+    }
+    return;
 };
 
 sub error {
@@ -65,12 +67,14 @@ sub set_id
     (undef, $_) = @_;
     /^\w{6,}$/ or error 'invalid identifier syntax';
     $id = $_;
+    return;
 }
 
 sub set_path
 {
     (undef, $path) = @_;
     $id = undef;
+    return;
 }
 
 sub set_interval
@@ -85,6 +89,7 @@ sub set_interval
         $dt *=           60 if $2 eq 'm';
         $interval += $dt;
     }
+    return;
 }
 
 sub compute_digest
