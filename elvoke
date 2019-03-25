@@ -83,7 +83,7 @@ sub set_interval
     $interval = 0;
     /^([0-9]+[dhms])+$/ or error 'invalid interval syntax';
     while (/([0-9]+)([dhms])/g) {
-        my $dt = int($1);
+        my $dt = int $1;
         $dt *= 24 * 60 * 60 if $2 eq 'd';
         $dt *=      60 * 60 if $2 eq 'h';
         $dt *=           60 if $2 eq 'm';
