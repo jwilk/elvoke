@@ -60,7 +60,7 @@ Exit with non-zero code if the command was postponed.
 
 =item B<--debug>
 
-Output some debug information.
+Print debug information.
 
 =item B<--version>
 
