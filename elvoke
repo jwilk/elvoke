@@ -152,7 +152,7 @@ if ($pid == 0) {
         my $ec;
         if ($? == 0) {
             debug "the child exited successfully";
-            open STAMP, '>', $path or error "can't open $path: $!";
+            open STAMP, '>', $path or error "cannot open $path: $!";
             close STAMP;
             $ec = 0;
         } else {
