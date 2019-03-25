@@ -218,4 +218,11 @@ if ($pid == 0) {
     }
 }
 
+END {
+    # catch write errors:
+    local $! = 0;
+    close STDOUT or error "stdout: $!";
+    close STDERR or error "stderr: $!";
+}
+
 # vim:ts=4 sts=4 sw=4 et
