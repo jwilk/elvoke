@@ -74,7 +74,7 @@ Show help message and exit.
 
 =head1 FILES
 
-elvoke stamp directory (I<elvoke-home>) is determined the following way:
+The time stamp directory (I<elvoke-home>) is determined the following way:
 
 =over 2
 
