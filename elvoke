@@ -201,7 +201,7 @@ if ($pid == 0) {
         if ($? == 0) {
             debug 'the child exited successfully';
             open my $fh, '>', $path or error "cannot open $path: $!";
-            close $fh;
+            close $fh or error "cannot close $path: $!";
             $ec = 0;
         } else {
             if ($? & 127) {
