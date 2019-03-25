@@ -27,6 +27,7 @@ use v5.10;
 use strict;
 use warnings;
 
+use English qw(-no_match_vars);
 use File::stat qw(stat);
 use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 
@@ -109,7 +110,7 @@ sub compute_digest
 sub show_version
 {
     print "elvoke $VERSION\n";
-    print "+ Perl $^V\n";
+    print "+ Perl $PERL_VERSION\n";
     exit 0;
 }
 
@@ -175,11 +176,11 @@ if (defined $stat) {
     my $op = $need_run ? '>' : '<=';
     debug "$elapsed $op $interval";
 } else {
-    if ($! == $!{ENOENT}) {
+    if ($ERRNO == $ERRNO{ENOENT}) {
         debug 'timestamp not found';
         $need_run = 1;
     } else {
-        error "cannot stat $path: $!";
+        error "cannot stat $path: $ERRNO";
     }
 }
 if (not $need_run) {
@@ -187,7 +188,7 @@ if (not $need_run) {
 }
 debug 'will update timestamp';
 my $pid = fork;
-defined $pid or error "fork failed: $!";
+defined $pid or error "fork failed: $ERRNO";
 if ($pid == 0) {
     # child:
     exec { $ARGV[0] } @ARGV or exit -1;
@@ -196,21 +197,21 @@ if ($pid == 0) {
     debug "child pid: $pid";
     $pid = wait;
     if ($pid < 0) {
-        error "wait failed: $!";
+        error "wait failed: $ERRNO";
     } else {
         my $ec;
-        if ($? == 0) {
+        if ($CHILD_ERROR == 0) {
             debug 'the child exited successfully';
-            open my $fh, '>', $path or error "cannot open $path: $!";
-            close $fh or error "cannot close $path: $!";
+            open my $fh, '>', $path or error "cannot open $path: $ERRNO";
+            close $fh or error "cannot close $path: $ERRNO";
             $ec = 0;
         } else {
-            if ($? & 127) {
-                my $signo = $? & 127;
+            if ($CHILD_ERROR & 127) {
+                my $signo = $CHILD_ERROR & 127;
                 debug "the child was killed by signal $signo";
                 $ec = 128 + $signo;
             } else {
-                $ec = $? >> 8;
+                $ec = $CHILD_ERROR >> 8;
                 debug "the child exited with error code $ec";
             }
         }
@@ -220,9 +221,9 @@ if ($pid == 0) {
 
 END {
     # catch write errors:
-    local $! = 0;
-    close STDOUT or error "stdout: $!";
-    close STDERR or error "stderr: $!";
+    local $ERRNO = 0;
+    close STDOUT or error "stdout: $ERRNO";
+    close STDERR or error "stderr: $ERRNO";
 }
 
 # vim:ts=4 sts=4 sw=4 et
