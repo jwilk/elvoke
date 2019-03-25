@@ -69,8 +69,8 @@ sub set_id
 
 sub set_path
 {
-    $id = undef;
     ($_, $path) = @_;
+    $id = undef;
 }
 
 sub set_interval
@@ -89,8 +89,9 @@ sub set_interval
 
 sub compute_digest
 {
+    my @args = @_;
     require Digest::MD5;
-    my $data = join "\0", @_;
+    my $data = join "\0", @args;
     $_ = Digest::MD5::md5_base64($data);
     s/\W/_/g;
     return $_;
