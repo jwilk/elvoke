@@ -118,12 +118,14 @@ my $usage_summary = 'Usage: elvoke [OPTIONS] -- COMMAND [ARGS...]';
 
 sub show_help()
 {
+    my $thome = $home;
+    $thome =~ s{\A\Q$ENV{HOME}\E/}{~/};
     print <<"EOF";
 $usage_summary
 
 Options:
   -i, --id IDENT      identifier to distinguish between different commands
-  -f, --file FILE     stamp file (default: ELVOKE-HOME/IDENT.stamp)
+  -f, --file FILE     stamp file (default: $thome/IDENT.stamp)
   -t, --interval INT  minimum interval between invocations of the same command:
                         Nd = N days
                         Nh = N hours
