@@ -44,7 +44,7 @@ my $home = undef;
 if (exists $ENV{ELVOKE_HOME}) {
     $home = $ENV{ELVOKE_HOME};
 } elsif (-d "$ENV{HOME}/.elvoke/") {
-    $home = "$ENV{HOME}/.elvoke/";
+    $home = "$ENV{HOME}/.elvoke";
 } else {
     # XDG Base Directory
     my $xdg_cache_home = $ENV{XDG_CACHE_HOME} // '';
