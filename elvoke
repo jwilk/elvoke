@@ -28,6 +28,7 @@ use strict;
 use warnings;
 
 use English qw(-no_match_vars);
+use File::Path qw();
 use File::stat qw(stat);
 use Getopt::Long qw(:config gnu_getopt no_ignore_case);
 
@@ -38,6 +39,7 @@ my $interval = 60 * 60;  # 1h
 my $debug = 0;
 my $fail_on_postpone = 0;
 
+my $please_mkdir_home = 0;
 my $home = undef;
 if (exists $ENV{ELVOKE_HOME}) {
     $home = $ENV{ELVOKE_HOME};
@@ -45,12 +47,11 @@ if (exists $ENV{ELVOKE_HOME}) {
     $home = "$ENV{HOME}/.elvoke/";
 } else {
     # XDG Base Directory
-    require File::Path;
     my $xdg_cache_home = $ENV{XDG_CACHE_HOME} // '';
     $xdg_cache_home =~ m{\A/}
         or $xdg_cache_home = "$ENV{HOME}/.cache";
     $home = "$xdg_cache_home/elvoke";
-    File::Path::make_path($home, { mode => oct 700 });
+    $please_mkdir_home = 1;
 }
 
 sub debug {
@@ -165,6 +166,9 @@ debug "home: $home";
 if (not defined $path) {
     if (not defined $id) {
         $id = compute_digest @ARGV;
+    }
+    if ($please_mkdir_home) {
+        File::Path::make_path($home, { mode => oct 700 });
     }
     $path = "$home/$id.stamp";
 }
