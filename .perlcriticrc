@@ -7,7 +7,7 @@ verbose = %f:%l: [%p] %m\n
 [InputOutput::RequireCheckedSyscalls]
 functions = :builtins
 # print failures are caught at the END
-exclude_functions = print
+exclude_functions = print say
 
 [Modules::ProhibitExcessMainComplexity]
 max_mccabe = 30

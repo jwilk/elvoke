@@ -55,14 +55,16 @@ if (exists $ENV{ELVOKE_HOME}) {
 }
 
 sub debug {
+    my ($msg) = @_;
     if ($debug) {
-        printf {*STDERR} "elvoke: debug: %s\n", shift;
+        say {*STDERR} "elvoke: debug: $msg";
     }
     return;
 };
 
 sub error {
-    printf {*STDERR} "elvoke: error: %s\n", shift;
+    my ($msg) = @_;
+    say {*STDERR} "elvoke: error: $msg";
     exit -1;
 }
 
@@ -112,8 +114,8 @@ sub compute_digest
 
 sub show_version
 {
-    print "elvoke $VERSION\n";
-    print "+ Perl $PERL_VERSION\n";
+    say "elvoke $VERSION";
+    say "+ Perl $PERL_VERSION";
     exit 0;
 }
 
@@ -145,7 +147,7 @@ EOF
 
 sub bad_usage()
 {
-    print {*STDERR} "$usage_summary\n";
+    say {*STDERR} $usage_summary;
     exit -1;
 }
 
