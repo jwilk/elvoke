@@ -5,12 +5,14 @@ perl:
 - "5.28"
 install:
 - python -m pip install --user docutils
+- cpanm Perl::MinimumVersion
 - cpanm Perl::Critic
 script:
 - make -C doc/
 - make -C doc/ check
 - perlcritic elvoke
 - perl -wc elvoke
+- make test
 - make install PREFIX=~/.local
 - cd /
 - elvoke --help

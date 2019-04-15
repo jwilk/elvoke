@@ -21,6 +21,14 @@ else
 	install doc/elvoke.1 $(DESTDIR)$(mandir)/man1/elvoke.1
 endif
 
+.PHONY: test
+test:
+	prove -v
+
+.PHONY: test-installed
+test-installed: $(or $(shell command -v elvoke;),$(bindir)/elvoke)
+	ELVOKE_TEST_TARGET=elvoke prove -v
+
 .PHONY: clean
 clean: ;
 
