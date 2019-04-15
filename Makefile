@@ -11,14 +11,14 @@ mandir = $(PREFIX)/share/man
 all: ;
 
 .PHONY: install
-install:
+install: elvoke
 	install -d $(DESTDIR)$(bindir)
-	install elvoke $(DESTDIR)$(bindir)/elvoke
+	install $(<) $(DESTDIR)$(bindir)
 ifeq "$(wildcard doc/elvoke.1)" ""
 	# run "$(MAKE) -C doc" to build the manpage
 else
 	install -d $(DESTDIR)$(mandir)/man1
-	install doc/elvoke.1 $(DESTDIR)$(mandir)/man1/elvoke.1
+	install doc/elvoke.1 $(DESTDIR)$(mandir)/man1/$(<).1
 endif
 
 .PHONY: test
