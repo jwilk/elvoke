@@ -45,9 +45,11 @@ if (exists $ENV{ELVOKE_HOME}) {
     $home = "$ENV{HOME}/.elvoke/";
 } else {
     # XDG Base Directory
-    require File::BaseDir;
     require File::Path;
-    $home = File::BaseDir::cache_home('elvoke/');
+    my $xdg_cache_home = $ENV{XDG_CACHE_HOME} // '';
+    $xdg_cache_home =~ m{\A/}
+        or $xdg_cache_home = "$ENV{HOME}/.cache";
+    $home = "$xdg_cache_home/elvoke";
     File::Path::make_path($home, { mode => oct 700 });
 }
 

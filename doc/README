@@ -8,9 +8,5 @@ Prerequisites
 =============
 
 * Perl ≥ 5.10
-* `File::BaseDir`_
-
-.. _File::BaseDir:
-   https://metacpan.org/release/File-BaseDir
 
 .. vim:ft=rst ts=3 sts=3 sw=3 et
