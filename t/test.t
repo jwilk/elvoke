@@ -8,7 +8,7 @@ echo 1..3
 base="${0%/*}/.."
 target="${ELVOKE_TEST_TARGET:-"$base/elvoke"}"
 echo "# test target = $target"
-tmpdir=$(mktemp -d -t printfify.XXXXXX)
+tmpdir=$(mktemp -d -t elvoke.XXXXXX)
 export ELVOKE_HOME="$tmpdir"
 out=$("$target" -t 2s echo foo)
 if [ "$out" = foo ]
