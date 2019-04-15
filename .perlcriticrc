@@ -23,6 +23,7 @@ max_mccabe = 30
 [-ValuesAndExpressions::ProhibitMagicNumbers]
 # no, thanks
 
+[-ValuesAndExpressions::ProhibitEmptyQuotes]
 [-ValuesAndExpressions::ProhibitNoisyQuotes]
 # no, thanks
 
