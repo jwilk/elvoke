@@ -3,6 +3,8 @@ language: perl
 perl:
 - "5.10"
 - "5.28"
+before_install:
+- export PERL_CPANM_OPT='--no-interactive --no-man-pages --notest --skip-satisfied'
 install:
 - python -m pip install --user docutils
 - cpanm Perl::MinimumVersion
