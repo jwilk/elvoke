@@ -1,8 +1,28 @@
 elvoke (0.4) UNRELEASED; urgency=low
 
-  * 
+  * Require Perl v5.10 (or a later version).
+  * Don't require File::BaseDir.
+  * Don't chdir to the stamp directory.
+  * Create the stamp directory only when needed.
+  * Fix handling exit status of children killed by signals.
+  * Remove undocumented --filename (alias for -f/--file).
+  * Add the test suite.
+  * Make --version print Perl version.
+  + Improve the build system:
+    + Add checks against BSD make.
+    + Add “test” and “test-installed” targets.
+  + Improve documentation:
+    + Add README.
+    + Clarify synopsis in the manual page.
+    + Abridge the --help message.
+    + Improve the manual page:
+      - Rephrase --file description.
+      - Rephrase FILES section.
+      - Rephrase --debug description.
+      - Rephrase --help/--version descriptions.
+  + Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Sat, 23 Mar 2019 23:32:17 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Dec 2019 15:07:21 +0100
 
 elvoke (0.3) unstable; urgency=low
 
