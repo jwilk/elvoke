@@ -8,10 +8,10 @@ elvoke (0.4) UNRELEASED; urgency=low
   * Remove undocumented --filename (alias for -f/--file).
   * Add the test suite.
   * Make --version print Perl version.
-  + Improve the build system:
+  * Improve the build system:
     + Add checks against BSD make.
     + Add “test” and “test-installed” targets.
-  + Improve documentation:
+  * Improve documentation:
     + Add README.
     + Clarify synopsis in the manual page.
     + Abridge the --help message.
@@ -20,7 +20,7 @@ elvoke (0.4) UNRELEASED; urgency=low
       - Rephrase FILES section.
       - Rephrase --debug description.
       - Rephrase --help/--version descriptions.
-  + Improve error handling.
+  * Improve error handling.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Dec 2019 15:07:21 +0100
 
