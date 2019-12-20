@@ -4,6 +4,26 @@ Overview
 **elvoke** either runs or postpones a command,
 depending on how much time elapsed from the last successful run.
 
+.. code:: console
+
+   $ elvoke --help
+   Usage: elvoke [OPTIONS] -- COMMAND [ARGS...]
+
+   Options:
+     -i, --id IDENT      identifier to distinguish between different commands
+     -f, --file FILE     stamp file (default: ~/.cache/elvoke/IDENT.stamp)
+     -t, --interval INT  minimum interval between invocations of the same command:
+                           Nd = N days
+                           Nh = N hours
+                           Nm = N minutes
+                           Ns = N seconds
+                         (default: 1 hour)
+     --fail-on-postpone  exit with non-zero code when postponing
+     --debug             print debug information
+     -h, -?, --help      show this help message and exit
+     --version           show version information and exit
+
+
 Prerequisites
 =============
 
