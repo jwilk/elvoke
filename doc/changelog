@@ -1,4 +1,4 @@
-elvoke (0.4) UNRELEASED; urgency=low
+elvoke (0.4) unstable; urgency=low
 
   * Require Perl v5.10 (or a later version).
   * Don't require File::BaseDir.
@@ -22,7 +22,7 @@ elvoke (0.4) UNRELEASED; urgency=low
       - Rephrase --help/--version descriptions.
   * Improve error handling.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Thu, 19 Dec 2019 15:07:21 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Fri, 20 Dec 2019 16:19:48 +0100
 
 elvoke (0.3) unstable; urgency=low
 
