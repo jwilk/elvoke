@@ -8,7 +8,7 @@ jobs:
 before_install:
 - export PERL_CPANM_OPT='--no-interactive --no-man-pages --notest --skip-satisfied'
 install:
-- python -m pip install --user docutils
+- python -m pip install --user docutils pygments
 - cpanm Perl::MinimumVersion
 - cpanm Perl::Critic
 script:
