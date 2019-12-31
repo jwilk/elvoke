@@ -23,16 +23,17 @@ my $debug = 0;
 my $fail_on_postpone = 0;
 
 my $please_mkdir_home = 0;
+my ($HOME) = <~>;
 my $home = undef;
 if (exists $ENV{ELVOKE_HOME}) {
     $home = $ENV{ELVOKE_HOME};
-} elsif (-d "$ENV{HOME}/.elvoke/") {
-    $home = "$ENV{HOME}/.elvoke";
+} elsif (-d "$HOME/.elvoke/") {
+    $home = "$HOME/.elvoke";
 } else {
     # XDG Base Directory
     my $xdg_cache_home = $ENV{XDG_CACHE_HOME} // '';
     $xdg_cache_home =~ m{\A/}
-        or $xdg_cache_home = "$ENV{HOME}/.cache";
+        or $xdg_cache_home = "$HOME/.cache";
     $home = "$xdg_cache_home/elvoke";
     $please_mkdir_home = 1;
 }
@@ -107,7 +108,7 @@ my $usage_summary = 'Usage: elvoke [OPTIONS] -- COMMAND [ARGS...]';
 sub show_help()
 {
     my $thome = $home;
-    $thome =~ s{\A\Q$ENV{HOME}\E/}{~/};
+    $thome =~ s{\A\Q$HOME\E/}{~/};
     print <<"EOF";
 $usage_summary
 
