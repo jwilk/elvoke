@@ -28,7 +28,7 @@ check-pod: manpage.pod
 
 .PHONY: check-rst
 check-rst: README
-	$(rst2xml) $(<) /dev/null
+	$(rst2xml) $(<) > /dev/null
 
 .PHONY: clean
 clean:
