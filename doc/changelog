@@ -1,8 +1,8 @@
 elvoke (0.4.1) UNRELEASED; urgency=low
 
-  * 
+  * Don't the require HOME environment variable to be set.
 
- -- Jakub Wilk <jwilk@jwilk.net>  Tue, 31 Dec 2019 19:49:59 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Mon, 13 Feb 2023 13:21:53 +0100
 
 elvoke (0.4) unstable; urgency=low
 
