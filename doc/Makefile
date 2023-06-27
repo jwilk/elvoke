@@ -10,7 +10,7 @@ rst2xml = $(notdir $(shell command -v rst2xml || echo rst2xml.py)) \
 .PHONY: all
 all: elvoke.1
 
-elvoke.1: manpage.pod
+elvoke.1: manpage.pod changelog
 	perl -pe 's/L<([a-z_-]+)[(]([0-9]+)[)]>/B<\1>(\2)/' $(<) \
 	| pod2man -c '' -n ELVOKE -r 'elvoke $(version)' > $(@).tmp
 	mv $(@).tmp $(@)
