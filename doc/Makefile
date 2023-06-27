@@ -1,4 +1,4 @@
-# Copyright © 2013-2019 Jakub Wilk <jwilk@jwilk.net>
+# Copyright © 2013-2023 Jakub Wilk <jwilk@jwilk.net>
 # SPDX-License-Identifier: MIT
 
 version = $(shell IFS='()' read _ v _ < changelog && echo $$v)
