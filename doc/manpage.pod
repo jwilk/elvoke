@@ -88,7 +88,7 @@ otherwise, use "I<$HOME>/.elvoke/" if it exists;
 
 =item *
 
-otherwise, use "I<$XDG_CACHE_DIR>/elvoke/" (creating it if needed)
+otherwise, use "I<$XDG_CACHE_HOME>/elvoke/" (creating it if needed)
 if the environment variable is set and non-empty;
 
 =item *
