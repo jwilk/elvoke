@@ -10,6 +10,7 @@ use v5.10;
 use strict;
 use warnings;
 
+use Carp qw(croak);
 use English qw(-no_match_vars);
 use File::Path qw();
 use File::stat qw(stat);
@@ -24,6 +25,21 @@ my $fail_on_postpone = 0;
 
 my $please_mkdir_home = 0;
 my ($HOME) = <~>;
+
+sub get_xdg_var
+{
+    my ($var) = @_;
+    local $_ = $ENV{$var} // '';
+    if (m{\A/}) {
+        return $_;
+    }
+    my $fallback = {
+        XDG_DATA_HOME => '.local/share',
+        XDG_CACHE_HOME => '.cache'
+    }->{$var} or croak "unsupported \$$var";
+    return "$HOME/$fallback";
+}
+
 my $home = undef;
 if (exists $ENV{ELVOKE_HOME}) {
     $home = $ENV{ELVOKE_HOME};
@@ -31,9 +47,7 @@ if (exists $ENV{ELVOKE_HOME}) {
     $home = "$HOME/.elvoke";
 } else {
     # XDG Base Directory
-    my $xdg_cache_home = $ENV{XDG_CACHE_HOME} // '';
-    $xdg_cache_home =~ m{\A/}
-        or $xdg_cache_home = "$HOME/.cache";
+    my $xdg_cache_home = get_xdg_var('XDG_CACHE_HOME');
     $home = "$xdg_cache_home/elvoke";
     $please_mkdir_home = 1;
 }
