@@ -1,6 +1,12 @@
 elvoke (0.5) UNRELEASED; urgency=low
 
+  * Use $XDG_DATA_HOME/elvoke/ (with fallback to ~/.local/share/elvoke/)
+    as default stamp directory.
+    https://github.com/jwilk/elvoke/issues/1
+  * Deprecate ~/.elvoke/ and $XDG_CACHE_HOME/elvoke/ (with fallback to
+    ~/.cache/elvoke/) as stamp directories.
   * Don't the require HOME environment variable to be set.
+  * Fix typos in the manual page.
 
  -- Jakub Wilk <jwilk@jwilk.net>  Wed, 07 Feb 2024 22:10:28 +0100
 
