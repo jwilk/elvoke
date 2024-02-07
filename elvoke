@@ -47,8 +47,13 @@ if (exists $ENV{ELVOKE_HOME}) {
     $home = "$HOME/.elvoke";
 } else {
     # XDG Base Directory
-    my $xdg_cache_home = get_xdg_var('XDG_CACHE_HOME');
-    $home = "$xdg_cache_home/elvoke";
+    for my $var (qw(XDG_CACHE_HOME XDG_DATA_HOME)) {
+        my $xdg_home = get_xdg_var($var);
+        $home = "$xdg_home/elvoke";
+        if (-d "$home/") {
+            last;
+        }
+    }
     $please_mkdir_home = 1;
 }
 
