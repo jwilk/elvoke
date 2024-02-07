@@ -84,11 +84,11 @@ use the B<ELVOKE_HOME> environment variable if it is set;
 
 =item *
 
-otherwise, use "I<$HOME>/.elvoke/" if it exists;
+[deprecated] otherwise, use "I<$HOME>/.elvoke/" if it exists;
 
 =item *
 
-otherwise, use "I<$XDG_CACHE_HOME>/elvoke/" (with fallback to I<$HOME>/.cache/elvoke/)
+[deprecated] otherwise, use "I<$XDG_CACHE_HOME>/elvoke/" (with fallback to I<$HOME>/.cache/elvoke/)
 if it exists;
 
 =item *
