@@ -43,7 +43,9 @@ jobs:
         make install PREFIX=~/.local
     - name: run post-install checks
       run: |
+        rm elvoke
         make test-installed
+        git restore elvoke
         cd /
         elvoke --help
         elvoke --version
